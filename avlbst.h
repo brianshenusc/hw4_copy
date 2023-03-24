@@ -291,12 +291,6 @@ void AVLTree<Key, Value>::rotateRight(AVLNode<Key, Value>* parent) {
             // std::cout << "1" << std::endl;
 
             AVLNode<Key, Value>* child = parent->getLeft();
-            // if(greatgrandparent->getRight() == grandparent) {
-            //     greatgrandparent->setRight(parent);
-            // }
-            // else {
-            //     greatgrandparent->setLeft(parent);
-            // }
             // this->root_ = parent;
             parent->setLeft(child);
             child->setParent(parent);
@@ -304,6 +298,12 @@ void AVLTree<Key, Value>::rotateRight(AVLNode<Key, Value>* parent) {
             parent->setRight(grandparent);
             grandparent->setParent(parent);
             grandparent->setLeft(NULL);
+            // if(greatgrandparent->getRight() == grandparent) {
+            //     greatgrandparent->setRight(parent);
+            // }
+            // else {
+            //     greatgrandparent->setLeft(parent);
+            // }
         }
         
     }
@@ -325,12 +325,6 @@ void AVLTree<Key, Value>::rotateRight(AVLNode<Key, Value>* parent) {
             // std::cout << "2" << std::endl;
             
             AVLNode<Key, Value>* child = parent->getRight();
-            // if(greatgrandparent->getRight() == grandparent) {
-            //     greatgrandparent->setRight(child);
-            // }
-            // else {
-            //     greatgrandparent->setLeft(child);
-            // }
             // this->root_ = child;
             child->setLeft(parent);
             parent->setParent(child);
@@ -339,6 +333,12 @@ void AVLTree<Key, Value>::rotateRight(AVLNode<Key, Value>* parent) {
             grandparent->setParent(child);
             grandparent->setLeft(NULL);
             parent->setRight(NULL);
+            // if(greatgrandparent->getRight() == grandparent) {
+            //     greatgrandparent->setRight(child);
+            // }
+            // else {
+            //     greatgrandparent->setLeft(child);
+            // }
 
         }
     }
@@ -370,12 +370,6 @@ void AVLTree<Key, Value>::rotateLeft(AVLNode<Key, Value>* parent) {
             // std::cout << "3" << std::endl;
 
             AVLNode<Key, Value>* child = parent->getRight();
-            // if(greatgrandparent->getRight() == grandparent) {
-            //     greatgrandparent->setRight(parent);
-            // }
-            // else {
-            //     greatgrandparent->setLeft(parent);
-            // }
             // this->root_ = parent;
             parent->setRight(child);
             child->setParent(parent);
@@ -383,6 +377,12 @@ void AVLTree<Key, Value>::rotateLeft(AVLNode<Key, Value>* parent) {
             parent->setLeft(grandparent);
             grandparent->setParent(parent);
             grandparent->setRight(NULL);
+            // if(greatgrandparent->getRight() == grandparent) {
+            //     greatgrandparent->setRight(parent);
+            // }
+            // else {
+            //     greatgrandparent->setLeft(parent);
+            // }
         }
         
     }
@@ -404,12 +404,6 @@ void AVLTree<Key, Value>::rotateLeft(AVLNode<Key, Value>* parent) {
             // std::cout << "4" << std::endl;
 
             AVLNode<Key, Value>* child = parent->getLeft();
-            // if(greatgrandparent->getRight() == grandparent) {
-            //     greatgrandparent->setRight(child);
-            // }
-            // else {
-            //     greatgrandparent->setLeft(child);
-            // }
             // this->root_ = child;
             child->setRight(parent);
             parent->setParent(child);
@@ -418,6 +412,12 @@ void AVLTree<Key, Value>::rotateLeft(AVLNode<Key, Value>* parent) {
             grandparent->setParent(child);
             grandparent->setRight(NULL);
             parent->setLeft(NULL);
+            // if(greatgrandparent->getRight() == grandparent) {
+            //     greatgrandparent->setRight(child);
+            // }
+            // else {
+            //     greatgrandparent->setLeft(child);
+            // }
         }
     }
 }
@@ -511,11 +511,13 @@ void AVLTree<Key, Value>:: remove(const Key& key)
 		// current = nullptr;
 		// return;
 	}
-
 	delete current;
 	current = nullptr;
     if(!isTwo) {
-        removeFix(p, diff);
+        if(this->root_ != NULL && ((this->root_->getLeft() != NULL && this->root_->getLeft()->getLeft() != NULL) || (this->root_->getRight() != NULL && this->root_->getRight()->getRight() != NULL))) {
+            std::cout << "HERE" << std::endl;
+            removeFix(p, diff);
+        }
     }
 }
 
